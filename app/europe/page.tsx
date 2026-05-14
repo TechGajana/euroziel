@@ -1,20 +1,35 @@
-import { PageHero, EyeBrow, SectionTitle, Rule, Btn } from '@/components/ui'
+import type { LucideIcon } from 'lucide-react'
+import {
+  Briefcase,
+  ChevronRight,
+  Download,
+  FlaskConical,
+  HeartPulse,
+  Laptop,
+  Palette,
+  Settings2,
+  Snowflake,
+  Sun,
+} from 'lucide-react'
+import { Btn, EyeBrow, PageHero, Rule, SectionTitle } from '@/components/ui'
 
 function StatCard({ num, label }: { num: string; label: string }) {
   return (
-    <div className="bg-[#0D1B2A] border border-[rgba(74,144,217,0.16)] rounded-[10px] px-[18px] py-7 text-center hover:border-[rgba(74,144,217,0.32)] transition-colors duration-200">
-      <div className="font-heading text-[34px] font-bold text-[#4A90D9]">{num}</div>
-      <div className="text-[12.5px] text-[#A8C8F0] mt-2">{label}</div>
+    <div className="rounded-[10px] border border-[rgba(74,144,217,0.16)] bg-[#0D1B2A] px-3 py-5 text-center transition-colors duration-200 hover:border-[rgba(74,144,217,0.32)] sm:px-[18px] sm:py-7">
+      <div className="font-heading text-[clamp(1.25rem,4vw,2.125rem)] font-bold leading-none text-[#4A90D9]">{num}</div>
+      <div className="mt-2 text-[11px] leading-snug text-[#A8C8F0] sm:text-[12.5px]">{label}</div>
     </div>
   )
 }
 
-function FieldCard({ icon, title, desc }: { icon: string; title: string; desc: string }) {
+function FieldCard({ Icon, title, desc }: { Icon: LucideIcon; title: string; desc: string }) {
   return (
-    <div className="bg-[#0D1B2A] border border-[rgba(74,144,217,0.16)] rounded-[10px] p-[26px] transition-all duration-200 hover:border-[#4A90D9] hover:bg-[#0f2035]">
-      <div className="text-[26px] mb-3">{icon}</div>
-      <h3 className="font-heading text-[15px] font-bold mb-2">{title}</h3>
-      <p className="text-[13px] text-[#A8C8F0] leading-[1.7]">{desc}</p>
+    <div className="rounded-[10px] border border-[rgba(74,144,217,0.16)] bg-[#0D1B2A] p-5 transition-all duration-200 hover:border-[#4A90D9] hover:bg-[#0f2035] sm:p-[26px]">
+      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-[rgba(74,144,217,0.16)] bg-[rgba(74,144,217,0.08)]">
+        <Icon className="h-5 w-5 text-[#4A90D9]" strokeWidth={1.65} />
+      </div>
+      <h3 className="mb-2 font-heading text-[15px] font-bold">{title}</h3>
+      <p className="text-[13px] leading-[1.7] text-[#A8C8F0]">{desc}</p>
     </div>
   )
 }
@@ -27,7 +42,7 @@ export default function EuropePage() {
         title={<>World-class education.<br /><em className="text-[#4A90D9] not-italic">Zero tuition fees.</em></>}
         subtitle="Germany's public universities are globally ranked, industry-connected, and largely free — making it the smartest move for ambitious Indian students."
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+        <div className="mt-8 grid grid-cols-1 gap-3 min-[400px]:grid-cols-2 sm:mt-10 md:mt-12 lg:grid-cols-4 lg:gap-4">
           <StatCard num="400K+" label="International Students in Germany" />
           <StatCard num="€0" label="Tuition at Public Universities" />
           <StatCard num="18 Mo." label="Post-Study Job Seeker Visa" />
@@ -35,62 +50,71 @@ export default function EuropePage() {
         </div>
       </PageHero>
 
-      {/* Fields */}
-      <section className="py-24 px-[5%]">
-        <div className="max-w-[1240px] mx-auto">
+      <section className="px-4 py-16 sm:px-[5%] sm:py-24">
+        <div className="mx-auto max-w-[1240px]">
           <EyeBrow>Fields & Specialisations</EyeBrow>
           <SectionTitle>What can you <em className="text-[#4A90D9] not-italic">study?</em></SectionTitle>
           <Rule />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-[18px] mt-12">
-            <FieldCard icon="💻" title="Computer Science & IT" desc="AI, Data Science, Cybersecurity, Software Engineering — Germany hosts SAP, Siemens Digital, and Europe's fastest-growing tech scene." />
-            <FieldCard icon="⚙️" title="Engineering" desc="Mechanical, Electrical, Automotive, Civil — with direct recruitment pathways into BMW, Bosch, Volkswagen, and Airbus." />
-            <FieldCard icon="💼" title="Business & Management" desc="MBA, MSc Finance, International Business — top European B-schools await your profile." />
-            <FieldCard icon="🔬" title="Natural Sciences" desc="Physics, Chemistry, Biotechnology — access world-leading research labs and DFG-funded institutes." />
-            <FieldCard icon="🎨" title="Design & Architecture" desc="Germany's Bauhaus legacy — globally recognised programmes in design, urban planning, and architecture." />
-            <FieldCard icon="⚕️" title="Medicine & Health" desc="Medicine, Pharmacy, Public Health — European qualifications respected in over 100 countries." />
+          <div className="mt-8 grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:mt-12 lg:grid-cols-3">
+            <FieldCard Icon={Laptop} title="Computer Science & IT" desc="AI, Data Science, Cybersecurity, Software Engineering — Germany hosts SAP, Siemens Digital, and Europe's fastest-growing tech scene." />
+            <FieldCard Icon={Settings2} title="Engineering" desc="Mechanical, Electrical, Automotive, Civil — with direct recruitment pathways into BMW, Bosch, Volkswagen, and Airbus." />
+            <FieldCard Icon={Briefcase} title="Business & Management" desc="MBA, MSc Finance, International Business — top European B-schools await your profile." />
+            <FieldCard Icon={FlaskConical} title="Natural Sciences" desc="Physics, Chemistry, Biotechnology — access world-leading research labs and DFG-funded institutes." />
+            <FieldCard Icon={Palette} title="Design & Architecture" desc="Germany's Bauhaus legacy — globally recognised programmes in design, urban planning, and architecture." />
+            <FieldCard Icon={HeartPulse} title="Medicine & Health" desc="Medicine, Pharmacy, Public Health — European qualifications respected in over 100 countries." />
           </div>
         </div>
       </section>
 
-      {/* Alumni Companies */}
-      <section className="py-24 px-[5%] bg-[#0D1B2A] border-y border-[rgba(74,144,217,0.16)]">
-        <div className="max-w-[1240px] mx-auto">
+      <section className="border-y border-[rgba(74,144,217,0.16)] bg-[#0D1B2A] px-4 py-16 sm:px-[5%] sm:py-24">
+        <div className="mx-auto max-w-[1240px]">
           <EyeBrow>Career Prospects</EyeBrow>
-          <SectionTitle>EuroZiel alumni now<br /><em className="text-[#4A90D9] not-italic">work at</em></SectionTitle>
+          <SectionTitle>
+            EuroZiel alumni now
+            <br />
+            <em className="text-[#4A90D9] not-italic">work at</em>
+          </SectionTitle>
           <Rule />
-          <p className="text-[17px] text-[#A8C8F0] max-w-[560px] font-light leading-[1.85]">
+          <p className="max-w-[560px] text-[15px] font-light leading-[1.85] text-[#A8C8F0] sm:text-[17px]">
             Germany&apos;s skilled worker shortage means graduates are actively recruited by Europe&apos;s most prestigious companies.
           </p>
-          <div className="flex flex-wrap gap-[10px] mt-8">
-            {['BMW Group', 'Siemens AG', 'Bosch', 'SAP', 'Volkswagen', 'Deutsche Bahn', 'BASF', 'Airbus',
-              'Allianz', 'Daimler Trucks', 'Zalando', 'DeepMind Berlin', 'N26', 'Celonis'].map((co) => (
-              <div key={co} className="bg-[#06080F] border border-[rgba(74,144,217,0.16)] rounded-[4px] px-[15px] py-[7px] text-[12.5px] text-[#A8C8F0] hover:border-[rgba(74,144,217,0.32)] hover:text-[#E8EDF5] transition-all duration-200 cursor-default">
+          <div className="mt-8 flex flex-wrap gap-[10px]">
+            {['BMW Group', 'Siemens AG', 'Bosch', 'SAP', 'Volkswagen', 'Deutsche Bahn', 'BASF', 'Airbus', 'Allianz', 'Daimler Trucks', 'Zalando', 'DeepMind Berlin', 'N26', 'Celonis'].map((co) => (
+              <div
+                key={co}
+                className="cursor-default rounded-[4px] border border-[rgba(74,144,217,0.16)] bg-[#06080F] px-[15px] py-[7px] text-[12.5px] text-[#A8C8F0] transition-all duration-200 hover:border-[rgba(74,144,217,0.32)] hover:text-[#E8EDF5]"
+              >
                 {co}
               </div>
             ))}
           </div>
 
-          <div className="mt-8 p-[22px] bg-[#06080F] border border-[rgba(74,144,217,0.16)] rounded-[10px] inline-grid grid-cols-2 md:grid-cols-4 gap-7 text-center">
-            {[['€52K', 'Avg. Graduate Salary'], ['3.4%', 'Graduate Unemployment'], ['18 Mo.', 'Job Seeker Visa'], ['1.7M', 'Unfilled Skilled Jobs']].map(([n, l]) => (
+          <div className="mt-8 inline-grid w-full max-w-full grid-cols-2 gap-4 rounded-[10px] border border-[rgba(74,144,217,0.16)] bg-[#06080F] p-4 text-center sm:gap-7 sm:p-[22px] md:grid-cols-4">
+            {[
+              ['€52K', 'Avg. Graduate Salary'],
+              ['3.4%', 'Graduate Unemployment'],
+              ['18 Mo.', 'Job Seeker Visa'],
+              ['1.7M', 'Unfilled Skilled Jobs'],
+            ].map(([n, l]) => (
               <div key={l}>
-                <div className="font-heading text-[24px] font-bold text-[#4A90D9]">{n}</div>
-                <div className="text-[12px] text-[#A8C8F0] mt-1">{l}</div>
+                <div className="font-heading text-[clamp(1.1rem,3.5vw,1.5rem)] font-bold text-[#4A90D9]">{n}</div>
+                <div className="mt-1 text-[12px] text-[#A8C8F0]">{l}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Semester Calendar */}
-      <section className="py-24 px-[5%]">
-        <div className="max-w-[1240px] mx-auto">
+      <section className="px-4 py-16 sm:px-[5%] sm:py-24">
+        <div className="mx-auto max-w-[1240px]">
           <EyeBrow>Semester Calendar</EyeBrow>
           <SectionTitle>When to <em className="text-[#4A90D9] not-italic">apply?</em></SectionTitle>
           <Rule />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[22px] mt-12">
+          <div className="mt-12 grid grid-cols-1 gap-[22px] md:grid-cols-2">
             {[
               {
-                title: '🍂 Winter Semester (Oct/Nov)',
+                Icon: Snowflake,
+                title: 'Winter Semester (Oct/Nov)',
                 items: [
                   'October / November start — most popular intake',
                   'Application opens: January each year',
@@ -101,7 +125,8 @@ export default function EuropePage() {
                 ],
               },
               {
-                title: '🌸 Summer Semester (Apr/May)',
+                Icon: Sun,
+                title: 'Summer Semester (Apr/May)',
                 items: [
                   'April / May start',
                   'Application opens: July each year',
@@ -111,13 +136,19 @@ export default function EuropePage() {
                   'Selected Masters in Business & Economics',
                 ],
               },
-            ].map(({ title, items }) => (
-              <div key={title} className="bg-[#0D1B2A] border border-[rgba(74,144,217,0.16)] rounded-[10px] p-[34px]">
-                <h3 className="font-heading text-[19px] font-bold text-[#4A90D9] mb-5">{title}</h3>
+            ].map(({ Icon, title, items }) => (
+              <div key={title} className="rounded-[10px] border border-[rgba(74,144,217,0.16)] bg-[#0D1B2A] p-5 sm:p-[34px]">
+                <h3 className="mb-4 flex flex-wrap items-center gap-2 font-heading text-[17px] font-bold text-[#4A90D9] sm:mb-5 sm:text-[19px]">
+                  <Icon className="h-5 w-5 shrink-0" strokeWidth={1.75} />
+                  {title}
+                </h3>
                 <ul className="list-none space-y-0">
                   {items.map((item) => (
-                    <li key={item} className="text-[13.5px] text-[#A8C8F0] py-[7px] border-b border-[rgba(74,144,217,0.16)] last:border-b-0 flex items-center gap-[10px]">
-                      <span className="text-[#4A90D9] text-[11px]">→</span>
+                    <li
+                      key={item}
+                      className="flex items-center gap-[10px] border-b border-[rgba(74,144,217,0.16)] py-[7px] text-[13.5px] text-[#A8C8F0] last:border-b-0"
+                    >
+                      <ChevronRight className="h-3.5 w-3.5 shrink-0 text-[#4A90D9]" strokeWidth={2.5} />
                       {item}
                     </li>
                   ))}
@@ -126,9 +157,14 @@ export default function EuropePage() {
             ))}
           </div>
 
-          <div className="flex gap-4 justify-center flex-wrap mt-12">
-            <Btn href="/contact">📥 Download Free Germany Guide</Btn>
-            <Btn href="/contact" variant="ghost">Book Counselling Call</Btn>
+          <div className="mt-10 flex flex-col items-stretch gap-3 sm:mt-12 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
+            <Btn href="/contact">
+              <Download className="h-4 w-4 shrink-0" strokeWidth={2} />
+              Download Free Germany Guide
+            </Btn>
+            <Btn href="/contact" variant="ghost">
+              Book Counselling Call
+            </Btn>
           </div>
         </div>
       </section>

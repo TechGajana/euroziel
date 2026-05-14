@@ -1,3 +1,5 @@
+import { WhatsAppMark } from '@/components/WhatsAppMark'
+
 export default function WhatsAppFloat() {
   return (
     <a
@@ -5,13 +7,9 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noreferrer"
       title="WhatsApp EuroZiel"
-      className="fixed bottom-[26px] right-[26px] w-[52px] h-[52px] rounded-full
-        bg-[#25D366] text-white flex items-center justify-center text-[22px]
-        shadow-[0_4px_18px_rgba(37,211,102,0.32)] cursor-pointer z-[9998]
-        hover:scale-[1.08] hover:shadow-[0_6px_28px_rgba(37,211,102,0.5)]
-        transition-all duration-200"
+      className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-[9998] flex h-[52px] w-[52px] cursor-pointer items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_18px_rgba(37,211,102,0.32)] transition-all duration-200 hover:scale-[1.08] hover:shadow-[0_6px_28px_rgba(37,211,102,0.5)] sm:bottom-[26px] sm:right-[26px]"
     >
-      💬
+      <WhatsAppMark className="h-7 w-7" />
     </a>
   )
 }

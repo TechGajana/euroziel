@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -9,9 +9,15 @@ export const metadata: Metadata = {
   description: "EuroZiel connects ambitious Indian students directly to Germany's top public universities — with guidance from students who are already there.",
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#06080F',
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -20,9 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body className="min-h-dvh overflow-x-hidden antialiased">
         <Navbar />
-        <main className="animate-fadeUp">
+        <main className="animate-fade-up pt-[66px]">
           {children}
         </main>
         <Footer />

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { PageHero, Btn } from '@/components/ui'
+import { WhatsAppMark } from '@/components/WhatsAppMark'
 
 interface FaqItem {
   q: string
@@ -48,19 +49,22 @@ export default function FaqPage() {
         subtitle="Everything you need to know before starting your journey to Germany."
       />
 
-      <section className="py-24 px-[5%]">
-        <div className="max-w-[1240px] mx-auto">
-          {/* Category filter */}
-          <div className="flex gap-2 mb-11 flex-wrap">
+      <section className="px-4 py-16 sm:px-[5%] sm:py-24">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mb-11 flex flex-wrap gap-2">
             {cats.map((c) => (
               <button
                 key={c.id}
-                onClick={() => { setActiveCat(c.id); setOpenIdx(null) }}
-                className={`px-[18px] py-[7px] rounded-[4px] border text-[13px] font-body cursor-pointer transition-all duration-200
-                  ${activeCat === c.id
-                    ? 'bg-[#4A90D9] text-[#06080F] border-[#4A90D9] font-semibold'
-                    : 'bg-transparent text-[#A8C8F0] border-[rgba(74,144,217,0.16)] hover:bg-[#4A90D9] hover:text-[#06080F] hover:border-[#4A90D9]'
-                  }`}
+                type="button"
+                onClick={() => {
+                  setActiveCat(c.id)
+                  setOpenIdx(null)
+                }}
+                className={`min-h-11 cursor-pointer rounded-[4px] border px-4 py-2 font-body text-[13px] transition-all duration-200 sm:px-[18px] sm:py-[7px] ${
+                  activeCat === c.id
+                    ? 'border-[#4A90D9] bg-[#4A90D9] font-semibold text-[#06080F]'
+                    : 'border-[rgba(74,144,217,0.16)] bg-transparent text-[#A8C8F0] hover:border-[#4A90D9] hover:bg-[#4A90D9] hover:text-[#06080F]'
+                }`}
               >
                 {c.label}
               </button>
@@ -68,16 +72,24 @@ export default function FaqPage() {
           </div>
 
           {/* FAQ accordion */}
-          <div className="max-w-[800px]">
+          <div className="mx-auto max-w-[800px]">
             {visible.map((item, i) => {
               const isOpen = openIdx === i
               return (
                 <div key={item.q} className="border-b border-[rgba(74,144,217,0.16)]">
                   <div
+                    role="button"
+                    tabIndex={0}
                     onClick={() => toggle(i)}
-                    className="py-[22px] flex justify-between items-center cursor-pointer gap-5 font-heading font-bold text-[15px] text-[#E8EDF5] hover:text-[#4A90D9] transition-colors duration-200"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        toggle(i)
+                      }
+                    }}
+                    className="flex min-h-14 cursor-pointer items-start justify-between gap-4 py-4 font-heading text-[14px] font-bold text-[#E8EDF5] transition-colors duration-200 hover:text-[#4A90D9] sm:items-center sm:gap-5 sm:py-[22px] sm:text-[15px]"
                   >
-                    <span>{item.q}</span>
+                    <span className="min-w-0 flex-1 pr-2">{item.q}</span>
                     <div className={`w-[26px] h-[26px] min-w-[26px] rounded-full flex items-center justify-center text-[18px] font-light transition-all duration-300
                       ${isOpen
                         ? 'rotate-45 bg-[#4A90D9] text-[#06080F] border border-[#4A90D9]'
@@ -86,8 +98,11 @@ export default function FaqPage() {
                       +
                     </div>
                   </div>
-                  <div className={`overflow-hidden transition-all duration-400 text-[13.5px] text-[#A8C8F0] leading-[1.85] font-light
-                    ${isOpen ? 'max-h-[320px] pb-[22px]' : 'max-h-0'}`}>
+                  <div
+                    className={`overflow-hidden text-[13.5px] font-light leading-[1.85] text-[#A8C8F0] transition-all duration-300 ${
+                      isOpen ? 'max-h-[min(70vh,560px)] pb-5 sm:pb-[22px]' : 'max-h-0'
+                    }`}
+                  >
                     {item.a}
                   </div>
                 </div>
@@ -96,12 +111,15 @@ export default function FaqPage() {
           </div>
 
           {/* Still have questions */}
-          <div className="mt-[52px] p-8 bg-[#0D1B2A] border border-[rgba(74,144,217,0.16)] rounded-[10px] max-w-[800px]">
+          <div className="mx-auto mt-10 max-w-[800px] rounded-[10px] border border-[rgba(74,144,217,0.16)] bg-[#0D1B2A] p-5 sm:mt-[52px] sm:p-8">
             <h3 className="font-heading text-[19px] font-bold mb-2">Still have questions?</h3>
             <p className="text-[13.5px] text-[#A8C8F0] mb-[22px] font-light">Our counsellors are available Monday–Saturday, 9am–7pm IST.</p>
             <div className="flex gap-3 flex-wrap">
               <Btn href="/contact">Ask Our Experts</Btn>
-              <Btn href="https://wa.me/917598969875" variant="ghost" external>💬 WhatsApp Us</Btn>
+              <Btn href="https://wa.me/917598969875" variant="ghost" external>
+                <WhatsAppMark className="h-4 w-4 shrink-0 text-[#25D366]" />
+                WhatsApp Us
+              </Btn>
             </div>
           </div>
         </div>
