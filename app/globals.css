@@ -134,3 +134,74 @@
     border-radius: 3px;
   }
 }
+
+
+/* ============================================================
+   Add these blocks to your existing app/globals.css
+   TAILWIND V4 — animations defined via @theme and @keyframes
+   ============================================================ */
+
+@import "tailwindcss";
+
+@theme {
+  /* ── Keyframe references ── */
+  --animate-fade-up:       fade-up    0.65s cubic-bezier(0.22,1,0.36,1) both;
+  --animate-fade-up-d1:    fade-up    0.65s 0.10s cubic-bezier(0.22,1,0.36,1) both;
+  --animate-fade-up-d2:    fade-up    0.65s 0.20s cubic-bezier(0.22,1,0.36,1) both;
+  --animate-fade-up-d3:    fade-up    0.65s 0.30s cubic-bezier(0.22,1,0.36,1) both;
+  --animate-fade-up-d4:    fade-up    0.65s 0.40s cubic-bezier(0.22,1,0.36,1) both;
+  --animate-fade-up-d5:    fade-up    0.65s 0.50s cubic-bezier(0.22,1,0.36,1) both;
+  --animate-fade-in:       fade-in    0.50s ease both;
+  --animate-scale-in:      scale-in   0.50s cubic-bezier(0.22,1,0.36,1) both;
+  --animate-slide-in-right: slide-in-right 0.65s 0.20s cubic-bezier(0.22,1,0.36,1) both;
+  --animate-blink:         blink      2s ease-in-out infinite;
+  --animate-ticker:        ticker     28s linear infinite;
+  --animate-float-a:       float-gentle 5.0s 0.0s  ease-in-out infinite;
+  --animate-float-b:       float-gentle 5.0s 1.2s  ease-in-out infinite;
+  --animate-float-c:       float-gentle 5.0s 2.4s  ease-in-out infinite;
+  --animate-float-d:       float-gentle 5.0s 0.8s  ease-in-out infinite;
+  --animate-float-e:       float-gentle 5.0s 1.8s  ease-in-out infinite;
+  --animate-glow-pulse:    glow-pulse 3s ease-in-out infinite;
+}
+
+/* ── Keyframe definitions ── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1;   }
+  50%       { opacity: 0.3; }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0);    }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(74,144,217,0.20); }
+  50%       { box-shadow: 0 0 40px rgba(74,144,217,0.45); }
+}

@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
 // ─── Eyebrow label ───────────────────────────────
-export function EyeBrow({ children }: { children: React.ReactNode }) {
+export function EyeBrow({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className="inline-flex items-center gap-[10px] text-[11.5px] font-semibold tracking-[0.12em] uppercase text-[#4A90D9] mb-4">
+    <div className={`inline-flex items-center gap-[10px] text-[11.5px] font-semibold tracking-[0.12em] uppercase text-[#4A90D9] mb-4 ${className}`}>
       <span className="block w-[28px] h-[1px] bg-[#4A90D9]" />
       {children}
     </div>
