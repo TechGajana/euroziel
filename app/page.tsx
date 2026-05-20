@@ -18,6 +18,9 @@ import { Btn, CtaBand, EyeBrow, Rule, SectionTitle } from "@/components/ui";
 import { CountryFlag, type CountryCode } from "@/components/CountryFlag";
 import { useScrollReveal, stagger } from "@/hooks/useScrollReveal";
 import Image from "next/image";
+import { HeroScene } from "@/components/HeroScene";
+import { HeroAnimatedSky } from "@/components/HeroAnimatedSky";
+import { ScrollAnimatedSection } from "@/components/ScrollAnimatedSection";
 
 // ─── Float Card ────────────────────────────────────────────────────────────────
 // No more `absolute` by default — caller decides positioning via className.
@@ -219,7 +222,7 @@ function TickerStrip() {
   );
 }
 
-// ─── Testimonial Card ─────────────────────────────────────────────────────────
+// ─── Testimonial Card ────────────────────────────────────────────��────────────
 
 function TestiCard({
   initials,
@@ -235,7 +238,7 @@ function TestiCard({
   country?: CountryCode;
 }) {
   return (
-    <div className="group rounded-xl border border-[rgba(74,144,217,0.14)] bg-[#0D1B2A] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(74,144,217,0.35)] hover:shadow-[0_8px_40px_rgba(74,144,217,0.12)] sm:p-7">
+    <div className="group rounded-xl border border-[rgba(74,144,217,0.14)] bg-[#0D1B2A] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[rgba(74,144,217,0.35)] hover:shadow-[0_8px_40px_rgba(74,144,217,0.12)] sm:p-7" data-scroll-animate>
       {/* Stars */}
       <div className="mb-4 flex gap-0.5 text-[#4A90D9]">
         {Array.from({ length: 5 }).map((_, i) => (
@@ -290,11 +293,12 @@ function FeatureCard({
   return (
     <div
       className={[
-        "bg-[#06080F] p-6 transition-all duration-300 hover:bg-[#0a1020] sm:p-8",
+        "group bg-[#06080F] p-6 transition-all duration-300 hover:bg-[#0a1020] hover:border-l-2 hover:border-[#4A90D9] sm:p-8",
         inView ? stagger(inView, index) : "opacity-0 translate-y-7",
         "transition-[opacity,transform] duration-700",
       ].join(" ")}
       style={{ transitionDelay: inView ? `${index * 80}ms` : "0ms" }}
+      data-scroll-animate
     >
       <div className="mb-4 font-heading text-[32px] font-bold leading-none text-[rgba(74,144,217,0.25)] transition-colors duration-200 group-hover:text-[rgba(74,144,217,0.45)]">
         {num}
@@ -340,17 +344,11 @@ export default function HomePage() {
       {/* ────────────────────────── HERO ────────────────────────── */}
       <section className="relative flex h-[100dvh] flex-col justify-center overflow-hidden bg-[#06080F] px-4 sm:px-[5%]">
         
-        {/* Hero background SVG — paste the SVG as a file */}
-        <Image
-          src="/images/euroziel_hero_bg_bridge.svg" // Public folder paths start with a slash
-          alt="Decorative bridge background" // Required for Next.js Image
-          aria-hidden="true"
-          fill // Replaces h-full w-full absolute inset-0
-          priority // Loads the hero image faster
-          className="pointer-events-none object-cover opacity-60"
-          style={{ objectPosition: "center center" }}
-        />
-        {/* Grid texture */}
+        {/* Animated Hero Background with Student & University */}
+        <HeroScene />
+        <HeroAnimatedSky />
+
+        {/* Grid texture overlay */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
