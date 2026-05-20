@@ -20,52 +20,56 @@ export function HeroScene() {
     // Create scroll-triggered animation for student moving toward university
     const timeline = gsap.timeline({
       scrollTrigger: {
-        trigger: 'body',
+        trigger: document.querySelector('body'),
         start: 'top top',
-        end: 'bottom center',
-        scrub: 1.2, // Smooth scrubbing
-        onUpdate: (self) => {
-          const progress = self.progress;
-          console.log('[v0] scroll progress:', progress);
-        },
+        end: '200% bottom',
+        scrub: 1.5, // Smooth scrubbing
+        markers: false,
       },
     });
 
-    // Student movement: comes closer to camera (Z-axis)
+    // Student perspective approach: Scale up and move down (walking toward camera)
     timeline.to(
       studentRef.current,
       {
-        y: -100, // Move up slightly
-        scale: 1.4, // Get bigger (coming closer)
-        opacity: 0.9,
+        scale: 3.2, // Significantly larger as they approach
+        y: 120, // Move down in frame
+        opacity: 0.85,
         duration: 1,
+        ease: 'none',
       },
       0
     );
 
-    // Student parallax left movement
+    // Subtle horizontal sway for realism
     timeline.to(
       studentRef.current,
       {
-        x: -30,
+        x: 15, // Slight left/right movement
       },
       0
     );
 
-    // University parallax effect (slight move down as student approaches)
+    // University subtle parallax (moves slightly to create depth)
     timeline.to(
       universityRef.current,
       {
-        y: 40,
-        scale: 1.08,
+        y: -25, // Slight upward movement for parallax depth
+        scale: 1.1,
+        ease: 'none',
       },
       0
     );
 
-    // Fade out effect at bottom to transition to next section
-    timeline.to(studentRef.current, {
-      opacity: 0,
-    });
+    // Gradual fade to transition at the end
+    timeline.to(
+      studentRef.current,
+      {
+        opacity: 0,
+        duration: 0.5,
+      },
+      0.8
+    );
 
     return () => {
       // Cleanup
@@ -109,7 +113,7 @@ export function HeroScene() {
       {/* Graduating Student - Foreground */}
       <div
         ref={studentRef}
-        className="absolute bottom-0 left-1/3 translate-x-[-50%] w-[280px] h-[400px] md:w-[350px] md:h-[480px]"
+        className="absolute bottom-0 left-1/2 translate-x-[-50%] w-[240px] h-[360px] md:w-[300px] md:h-[420px] lg:w-[380px] lg:h-[520px]"
         style={{
           transformOrigin: 'center bottom',
         }}
@@ -120,7 +124,7 @@ export function HeroScene() {
           fill
           className="object-contain object-bottom pointer-events-none"
           priority
-          quality={90}
+          quality={95}
         />
       </div>
 

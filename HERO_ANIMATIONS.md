@@ -2,49 +2,59 @@
 
 ## Overview
 
-The EuroZiel website has been transformed with immersive scroll-triggered animations powered by GSAP (GreenSock Animation Platform) and Three.js visualization.
+The EuroZiel website features a stunning photorealistic hero section with immersive scroll-triggered perspective animations powered by GSAP (GreenSock Animation Platform). The scene creates the illusion of a graduating student walking toward a prestigious German university.
 
 ## Key Features
 
-### 🎬 Hero Section Animation
+### 🎬 Photorealistic Hero Section
 
-The hero section features an interactive 3D scene with:
+The hero section features three interconnected visual elements:
 
-#### **Components**
+#### **1. German University Building**
+- Classical neoclassical architecture with authentic stone facade
+- Ornate entrance with marble columns and decorative pediment
+- Professional architectural photography quality
+- Subtle parallax background movement as student approaches
+- Gradient overlay for cinematic depth
 
-1. **HeroScene.tsx** - Main 3D scene component
-   - Displays German university building in the background
-   - Graduating student in cap and gown positioned in foreground
-   - Parallax camera effects on scroll
-   - Student appears to approach the university as user scrolls
-   - Smooth fade-out transition to next section
+#### **2. Graduating Student Character**
+- Photorealistic image of student in academic cap and gown
+- Natural lighting and realistic proportions
+- Centered positioning for visual balance
+- Scales from 1x to 3.2x as user scrolls (perspective approach effect)
+- Responsive sizing across all device sizes
 
-2. **HeroAnimatedSky.tsx** - Weather & atmosphere layer
-   - Animated sun with pulsing glow effect
-   - Multiple animated clouds with parallax depth
-   - Creates realistic weather ambiance over the scene
-   - Smooth horizontal drift animation for clouds
+#### **3. Animated Weather Elements (HeroAnimatedSky.tsx)**
+- **Realistic Sun**: Multi-layered glow with radial gradients and drop shadows
+- **Fluffy Clouds**: 5 cloud layers with varying opacity and blur for depth
+- **Parallax Motion**: Clouds drift at different speeds based on Z-depth
+- **Natural Lighting**: Warm color palette (yellow-orange) enhances atmosphere
 
-#### **How It Works**
+#### **Animation Mechanics**
+
+The hero animation creates a realistic perspective effect where the student appears to walk toward the camera:
 
 ```
 User Scrolls Down
     ↓
-ScrollTrigger detects page position
+ScrollTrigger monitors page position
     ↓
-GSAP Timeline animates:
-  • Student moves up & scales larger (appears closer)
-  • University parallaxes slightly (appears smaller/farther)
-  • Opacity transitions for smooth fade
+GSAP Timeline applies transformations:
+  • Student Scale: 1x → 3.2x (approaches camera)
+  • Student Y Position: Moves down in frame (walking toward)
+  • University Y Position: -25px (parallax depth effect)
+  • Opacity: Gradual fade (0.85 → 0) at scroll end
     ↓
-Student seemingly walks toward/into the university
+Creates illusion of student walking from distance toward university
 ```
 
-### 📊 Scroll Timeline
+### 📊 Animation Timeline
 
-- **Start**: Student at bottom, far from university
-- **Middle**: Student scales up, moves toward university center
-- **End**: Student fully approaches, fades as next section appears
+- **Scroll Start (0%)**: Student at original size, positioned at bottom
+- **Scroll Middle (50%)**: Student scales to 2.0x, moves toward center
+- **Scroll End (100%)**: Student reaches 3.2x scale, fades to transparent
+- **Duration**: ~200% of viewport height (extended for smooth interaction)
+- **Easing**: Linear (no easing) for constant speed feel
 
 ### ☀️ Weather Elements
 
@@ -120,19 +130,41 @@ Located in `components/HeroScene.tsx`:
 ```typescript
 const timeline = gsap.timeline({
   scrollTrigger: {
-    trigger: 'body',
+    trigger: document.querySelector('body'),
     start: 'top top',
-    end: 'bottom center',
-    scrub: 1.2,  // Smooth scrubbing linked to scroll speed
+    end: '200% bottom',
+    scrub: 1.5,  // Smooth scrubbing (1.5 = slight delay for natural feel)
   },
 });
 ```
 
+**Key Animation Values:**
+
+```typescript
+// Student approaches camera (perspective effect)
+timeline.to(studentRef.current, {
+  scale: 3.2,      // 220% larger (realistic approach)
+  y: 120,          // Move down in frame
+  opacity: 0.85,   // Slight transparency for realism
+  ease: 'none',
+});
+
+// Subtle horizontal sway for realism
+timeline.to(studentRef.current, { x: 15 });
+
+// University parallax (moves slightly up as student approaches)
+timeline.to(universityRef.current, {
+  y: -25,          // Upward shift
+  scale: 1.1,      // Slight enlargement
+  ease: 'none',
+});
+```
+
 **Parameters:**
-- `trigger`: Element that activates animation
-- `start`: When animation begins relative to viewport
-- `end`: When animation ends
-- `scrub`: Links animation to scroll position (1.2 = smooth delay)
+- `trigger`: Body element (hero spans full viewport height)
+- `start`: Animation begins at top of page
+- `end`: Animation spans 200% of viewport (extended interaction)
+- `scrub`: Links animation directly to scroll position
 
 ### Section Animations
 
