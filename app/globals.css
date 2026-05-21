@@ -205,3 +205,84 @@
   0%, 100% { box-shadow: 0 0 20px rgba(74,144,217,0.20); }
   50%       { box-shadow: 0 0 40px rgba(74,144,217,0.45); }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   HERO SCROLL ANIMATIONS
+   ───────────────────────────────────────────────────────────── */
+
+@keyframes hero-student-approach {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(1.4);
+    opacity: 0.9;
+  }
+}
+
+@keyframes hero-university-parallax {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(40px) scale(1.08);
+  }
+}
+
+@keyframes sun-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(255, 200, 87, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(255, 200, 87, 0.6);
+  }
+}
+
+@keyframes cloud-drift {
+  0% {
+    transform: translateX(0);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(100vw);
+    opacity: 0.7;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SECTION SCROLL REVEAL ANIMATIONS
+   ───────────────────────────────────────────────────────────── */
+
+@keyframes section-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes card-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes number-counter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
