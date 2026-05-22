@@ -6,51 +6,53 @@ import gsap from 'gsap';
 export function HeroAnimatedSky() {
   const sunRef = useRef<HTMLDivElement>(null);
   const cloudsContainerRef = useRef<HTMLDivElement>(null);
+  const ctxRef = useRef<gsap.Context | null>(null);
 
   useEffect(() => {
-    // Sun glow animation
-    if (sunRef.current) {
-      gsap.fromTo(
-        sunRef.current,
-        {
-          boxShadow: '0 0 30px rgba(255, 200, 87, 0.3)',
-        },
-        {
-          boxShadow: '0 0 60px rgba(255, 200, 87, 0.6)',
-          duration: 3,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        }
-      );
-    }
+    ctxRef.current = gsap.context(() => {
+      if (sunRef.current) {
+        gsap.fromTo(
+          sunRef.current,
+          {
+            boxShadow: '0 0 30px rgba(255, 200, 87, 0.3)',
+          },
+          {
+            boxShadow: '0 0 70px rgba(255, 200, 87, 0.7)',
+            duration: 3.2,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+          }
+        );
+      }
 
-    // Clouds floating animation with parallax depth
-    const cloudElements = cloudsContainerRef.current?.querySelectorAll('.cloud');
-    if (cloudElements) {
-      cloudElements.forEach((cloud, index) => {
-        // Different speeds for parallax effect
-        const duration = 25 + index * 8; // Slower, more natural
-        const distance = 150 + index * 50;
+      const clouds = cloudsContainerRef.current?.querySelectorAll<HTMLDivElement>('.cloud');
+      clouds?.forEach((cloud, index) => {
+        const duration = 28 + index * 10;
+        const distance = 180 + index * 60;
 
         gsap.to(cloud, {
           x: distance,
           duration,
           repeat: -1,
           ease: 'none',
-          delay: index * 0.5, // Staggered start
+          delay: index * 0.4,
         });
 
-        // Subtle opacity variation
         gsap.to(cloud, {
-          opacity: 0.3 + index * 0.15,
-          duration: 6,
+          opacity: 0.28 + index * 0.12,
+          duration: 6 + index * 1.5,
           repeat: -1,
           yoyo: true,
           ease: 'sine.inOut',
         });
       });
-    }
+    }, cloudsContainerRef);
+
+    return () => {
+      ctxRef.current?.revert();
+      ctxRef.current = null;
+    };
   }, []);
 
   return (
@@ -93,6 +95,11 @@ export function HeroAnimatedSky() {
             filter: 'drop-shadow(0 0 40px rgba(255, 200, 87, 0.6))',
           }}
         />
+      </div>
+
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(74,144,217,0.10),transparent_52%)]" />
+        <div className="absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-[#1f3b6c] via-transparent to-transparent opacity-70" />
       </div>
 
       {/* Clouds Container */}
@@ -144,6 +151,26 @@ export function HeroAnimatedSky() {
             background: 'radial-gradient(ellipse 100% 50% at 50% 40%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.55) 40%, rgba(255, 255, 255, 0.05) 100%)',
             filter: 'blur(14px)',
             opacity: 0.42,
+          }}
+        />
+
+        {/* Cloud 6 - Extra soft layer */}
+        <div
+          className="cloud absolute top-12 -left-64 w-[420px] h-14"
+          style={{
+            background: 'radial-gradient(ellipse 100% 50% at 50% 40%, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.3) 40%, rgba(255, 255, 255, 0) 100%)',
+            filter: 'blur(22px)',
+            opacity: 0.32,
+          }}
+        />
+
+        {/* Cloud 7 - Soft haze */}
+        <div
+          className="cloud absolute top-56 -left-72 w-[480px] h-18"
+          style={{
+            background: 'radial-gradient(ellipse 100% 50% at 50% 45%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.25) 40%, rgba(255, 255, 255, 0) 100%)',
+            filter: 'blur(24px)',
+            opacity: 0.28,
           }}
         />
       </div>
