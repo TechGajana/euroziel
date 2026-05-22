@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { EyeBrow, Rule, SectionTitle } from "@/components/ui";
 import {
   Calendar,
@@ -14,12 +14,6 @@ import {
   Sparkles,
   Clock,
   CheckCircle2,
-  MapPin,
-  Users,
-  BookOpen,
-  CreditCard,
-  Home,
-  Briefcase,
 } from "lucide-react";
 
 // ─── Journey Step Data with Storytelling Elements ─────────────────────────────
@@ -338,7 +332,7 @@ function JourneyCard({ step, index }: { step: JourneyStep; index: number }) {
         </div>
 
         {/* Stats Grid */}
-        {step.stats && (
+        if {step.stats && (
           <div className="mt-4 grid grid-cols-2 gap-3 border-t border-[rgba(74,144,217,0.16)] pt-4">
             {step.stats.map((stat, i) => (
               <div key={i} className="text-center">
@@ -442,10 +436,9 @@ function ParallaxBackground({ scrollProgress }: { scrollProgress: number }) {
 
 // ─── Main Journey Section ───────────────────────────────────────────────────
 
-export function JourneySection({ onReachedEnd }: { onReachedEnd?: () => void }) {
+export function JourneySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [hasReachedEnd, setHasReachedEnd] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -468,22 +461,13 @@ export function JourneySection({ onReachedEnd }: { onReachedEnd?: () => void }) 
       
       const safeProgress = isNaN(progress) ? 0 : progress;
       setScrollProgress(safeProgress);
-      
-      // Check if user has scrolled to the end of the journey section
-      const isAtEnd = scrolled >= totalScrollable - 50;
-      if (isAtEnd && !hasReachedEnd) {
-        setHasReachedEnd(true);
-        onReachedEnd?.();
-      } else if (!isAtEnd && hasReachedEnd) {
-        setHasReachedEnd(false);
-      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasReachedEnd, onReachedEnd]);
+  }, []);
 
   if (!mounted) {
     return (
@@ -593,17 +577,6 @@ export function JourneySection({ onReachedEnd }: { onReachedEnd?: () => void }) 
             transition={{ duration: 0.3 }}
             className="mt-16 text-center"
           >
-            <div className="inline-flex flex-col items-center gap-2">
-              <span className="text-[10px] uppercase tracking-[0.12em] text-[rgba(168,200,240,0.40)]">
-                Scroll to Explore More
-              </span>
-              <div className="flex h-12 w-[1px] items-start justify-center overflow-hidden bg-[rgba(74,144,217,0.15)]">
-                <div
-                  className="h-6 w-full bg-[#4A90D9]"
-                  style={{ animation: "scrollExplore 1.8s ease-in-out infinite" }}
-                />
-              </div>
-            </div>
           </motion.div>
 
           {/* Motivational Footer (appears when reaching the end) */}

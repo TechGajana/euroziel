@@ -1,58 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { Calendar, PartyPopper } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { Btn, CtaBand, EyeBrow, Rule, SectionTitle } from "@/components/ui";
 import { CountryFlag, type CountryCode } from "@/components/CountryFlag";
 import { HeroSection } from "@/sections/HeroSection";
 import { WhyEuroZiel } from "@/sections/WhyEuroZiel";
 import { JourneySection } from "@/sections/JourneySection";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-
-// ─── Smooth Scroll Hook ────────────────────────────────────────────────────────
-
-function useSmoothScroll() {
-  const isScrolling = useRef(false);
-  const sections = useRef<HTMLElement[]>([]);
-
-  useEffect(() => {
-    sections.current = Array.from(document.querySelectorAll("section"));
-    
-    const handleWheel = (e: WheelEvent) => {
-      if (isScrolling.current) return;
-      
-      const currentScroll = window.scrollY;
-      const windowHeight = window.innerHeight;
-      
-      let currentIndex = sections.current.findIndex((section) => {
-        const rect = section.getBoundingClientRect();
-        return rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2;
-      });
-      
-      if (currentIndex === -1) currentIndex = 0;
-      
-      const direction = e.deltaY > 0 ? 1 : -1;
-      const nextIndex = Math.max(0, Math.min(sections.current.length - 1, currentIndex + direction));
-      
-      if (nextIndex !== currentIndex) {
-        e.preventDefault();
-        isScrolling.current = true;
-        
-        sections.current[nextIndex].scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-        
-        setTimeout(() => {
-          isScrolling.current = false;
-        }, 800);
-      }
-    };
-    
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, []);
-}
 
 // ─── Testimonial Card ─────────────────────────────────────────────────────────
 
@@ -110,8 +64,6 @@ function Star({ className, strokeWidth }: { className: string; strokeWidth?: num
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
-  useSmoothScroll();
-  
   const whyRef = useScrollReveal<HTMLElement>({ threshold: 0.08 });
   const statsRef = useScrollReveal<HTMLDivElement>({ threshold: 0.15 });
   const testiRef = useScrollReveal<HTMLDivElement>({ threshold: 0.08 });
